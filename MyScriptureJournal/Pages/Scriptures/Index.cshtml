@@ -1,0 +1,75 @@
+﻿@page
+@model MyScriptureJournal.Pages.Scriptures.IndexModel
+@section styles {
+    <link rel="stylesheet" href="~/css/user.css" />
+} 
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<form>
+    <p>
+        <select asp-for="BookTitle" asp-items="Model.Book">
+            <option value="">All</option>
+        </select>
+        Book: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Scripture[0].Book)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Scripture[0].Chapter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Scripture[0].Verse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Scripture[0].Passage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Scripture[0].Comments)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Scripture) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Chapter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Verse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Passage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comments)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ScriptureId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ScriptureId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ScriptureId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
